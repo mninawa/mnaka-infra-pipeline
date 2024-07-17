@@ -1,0 +1,14 @@
+variable "RESOURCE_PREFIX" {}
+variable "AWS_REGION" {}
+variable "CURRENT_ACCOUNT_ID" {}
+variable "REPOSITORY_NAME" {}
+variable "CODE_PIPELINE_NAME" {}
+variable "CODEBUILD_VALIDATE_NAME" {}
+variable "CODEBUILD_DEPLOY_NAME" {}
+variable "CLOUD_WATCH_EVENT_ROLE_NAME" {}
+variable "CODEBUILD_ROLE_NAME" {}
+# variable "CODEBUILD_ROLE_ARN" {}
+variable "CODEBUILD_DEPLOY_ROLE_NAME" {}
+# variable "CODEBUILD_DEPLOY_ROLE_ARN" {}
+variable "CODEPIPELINE_ROLE_NAME" {}
+variable "CODEBUILD_VALIDATE_ARN" {}
