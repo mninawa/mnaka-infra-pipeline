@@ -1,5 +1,5 @@
 variable "ENV" {
-  default = "mnaka-int"
+  default = "mnaka-dev"
 }
 
 variable "REGION" {
@@ -7,5 +7,5 @@ variable "REGION" {
 }
 
 variable "REPOSITORY_NAME" {
-  default = "mnaka-int-infra"
+  default = "mnaka-dev-infra"
 }
