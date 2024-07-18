@@ -11,7 +11,6 @@ module "role" {
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
 }
 
-
 module "policies" {
   source = "./modules/policy"
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
@@ -21,7 +20,6 @@ module "policies" {
   CODE_PIPELINE_NAME = local.CODE_PIPELINE_NAME
   CODEBUILD_VALIDATE_NAME = local.CODEBUILD_VALIDATE_NAME
   CODEBUILD_DEPLOY_NAME = local.CODEBUILD_DEPLOY_NAME
-  
   CLOUD_WATCH_EVENT_ROLE_NAME = module.role.CLOUD_WATCH_EVENT_ROLE_NAME
   CODEBUILD_ROLE_NAME = module.role.CODEBUILD_ROLE_NAME
   CODEBUILD_DEPLOY_ROLE_NAME = module.role.CODEBUILD_DEPLOY_ROLE_NAME
@@ -29,13 +27,11 @@ module "policies" {
   CODEBUILD_VALIDATE_ARN = module.codebuild.CODEBUILD_VALIDATE_ARN
 }
 
-
 # bucket for pipeline
 module "s3" {
   source = "./modules/s3"
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
 }
-
 
 module "codebuild" {
   source = "./modules/code-build"
@@ -46,10 +42,8 @@ module "codebuild" {
   CODEBUILD_NAME = local.CODEBUILD_VALIDATE_NAME
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   TF_ACTION = "plan"
-  
   CODEBUILD_ROLE_ARN = module.role.CODEBUILD_ROLE_ARN
 }
-
 
 module "codebuild_deploy" {
   source = "./modules/code-build"
@@ -60,7 +54,6 @@ module "codebuild_deploy" {
   CODEBUILD_NAME = local.CODEBUILD_DEPLOY_NAME
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   TF_ACTION = "apply -auto-approve"
-  
   CODEBUILD_ROLE_ARN = module.role.CODEBUILD_DEPLOY_ROLE_ARN
 }
 
@@ -70,20 +63,17 @@ module "codepipeline" {
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
   COMMON_TAGS = local.common_tags
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
-  
   CODEPIPELINE_ROLE_ARN = module.role.CODEPIPELINE_ROLE_ARN
   CODEPIPELINE_BUCKET = module.s3.CODEPIPELINE_BUCKET
   REPOSITORY_NAME = local.REPOSITORY_NAME
   CODEBUILD_VALIDATE_NAME = local.CODEBUILD_VALIDATE_NAME
   CODEBUILD_DEPLOY_NAME = local.CODEBUILD_DEPLOY_NAME
-
   depends_on = [
     module.codebuild,
     module.codebuild_deploy,
     module.s3
   ]
 }
-
 
 module "cloudwatch_event" {
   source = "./modules/cloudwatch-event"
