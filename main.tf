@@ -53,7 +53,7 @@ module "codebuild_deploy" {
   REPOSITORY_NAME = local.REPOSITORY_NAME
   CODEBUILD_NAME = local.CODEBUILD_DEPLOY_NAME
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
-  TF_ACTION = "destroy -auto-approve"
+  TF_ACTION = "apply -auto-approve"
   CODEBUILD_ROLE_ARN = module.role.CODEBUILD_DEPLOY_ROLE_ARN
 }
 
